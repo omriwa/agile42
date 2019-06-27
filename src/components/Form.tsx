@@ -77,7 +77,6 @@ export class Form extends React.Component<IFormProps, IFormState> {
         },
             () => {
                 if (this.state.submitedSucceed) {
-                    console.log("this.state.submitedSucceed", this.state.submitedSucceed)
                     window.location.pathname = window.location.pathname.substr(0, window.location.pathname.length - 2) + this.props.successUrl;
                 }
             }

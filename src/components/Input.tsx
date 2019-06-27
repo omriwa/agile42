@@ -1,28 +1,41 @@
-import React, { memo } from 'react';
-// component
-import { HOCInput } from './HOCInput';
-// interface
-import { IHOCInputProps } from './HOCInput';
+import React, { memo, ChangeEvent } from 'react';
+// style
+import { Label, InputStyledComponent } from './FormStyle';
 
-interface IInputProps extends IHOCInputProps {
-    label: string;
-    submited: boolean;
+export interface IInputData {
+    type: 'text' | 'email' | 'number' | 'date';
+    value: any;
 }
 
-export const Input = memo((props: IInputProps & IHOCInputProps) => {
+interface IInputFunctions {
+    updateValue: (value: any) => void;
+}
 
-    return <div>
-        <label>
-            {
-                props.label
-            }
-        </label>
+interface IInputProps extends IInputData, IInputFunctions {
+    label: string;
+    show: boolean;
+}
 
-        <HOCInput
-            type={props.type}
-            value={props.value}
-            updateState={props.updateState}
+export const Input = memo((props: IInputProps) => {
+    const onChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => props.updateValue(e.target.value);
+
+    return props.show
+        ?
+        < div >
+            <Label
+            >
+                {
+                    props.label
+                }
+            </Label>
+
+            <InputStyledComponent
+                type={props.type}
+                value={props.value}
+                onChange={onChange}
             />
-    </div>
+        </div>
+        :
+        null;
 });
 
